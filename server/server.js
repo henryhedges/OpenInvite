@@ -12,10 +12,18 @@
 
 // Still need a database conneciton -- now postgres
 var knex = require('knex')({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-  searchPath: 'knex,public'
-}});
+  production: {
+    client: 'postgresql',
+    connection: {
+      host:'ec2-54-247-81-123.eu-west-1.compute.amazonaws.com',
+      database:'dmbarhi7fssa',
+      user:'xrcfdnhaqztqdv',
+      port:'5432',
+      password:'y28gCJqxEjxMs18fLFY0ysazcF'
+    },
+    searchPath: 'knex,public'
+  }
+});
 
 
 // code from the express.static docs
