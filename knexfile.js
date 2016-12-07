@@ -2,16 +2,16 @@
 
 module.exports = {
   //the production route information works for sure ... unsure of dev
-  development: {
-    client: 'pg',
-    connection: {
-      host: '127.0.0.1',
-      user: 'root',
-      password: '',
-      database: 'db',
-      charset: 'utf8'
-    }
-  },
+  // development: {
+  //   client: 'pg',
+  //   connection: {
+  //     host: '127.0.0.1',
+  //     user: 'root',
+  //     password: '',
+  //     database: 'db',
+  //     charset: 'utf8'
+  //   }
+  // },
   production: {
     client: 'pg',
     connection: {
@@ -19,6 +19,7 @@ module.exports = {
       database:'da2e4sh7knvhts',
       user:'piemlflqgregxw',
       password:'j26DtKPrrSNIlRyC_1C3i3gdVR',
+      port:5432,
       ssl:true
     },
     searchPath: 'knex,public'

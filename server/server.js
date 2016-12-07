@@ -5,6 +5,9 @@ var path = require('path');
 var app = express();
 var bodyParser = require('body-parser')
 var connection = require('../knexfile.js');
+var pg = require('pg');
+
+
 // var Promise = require("bluebird");
 //knexfile();
 // Serves up a browserified version of our index, with access to any of it's dependencies
@@ -19,13 +22,24 @@ var knex = require('knex')({
       database:'da2e4sh7knvhts',
       user:'piemlflqgregxw',
       password:'j26DtKPrrSNIlRyC_1C3i3gdVR',
+      port:5432,
       ssl:true
     },
     searchPath: 'knex,public'
   }
 });
 
+pg.defaults.ssl = true;
+pg.connect('postgres://piemlflqgregxw:j26DtKPrrSNIlRyC_1C3i3gdVR@ec2-54-247-76-24.eu-west-1.compute.amazonaws.com:5432/da2e4sh7knvhts', function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
 
+  client
+    .query('SELECT * FROM users;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
+    });
+});
 
 // code from the express.static docs
 app.use(express.static(path.join(__dirname, '/../client/')))
@@ -41,6 +55,19 @@ app.use (bodyParser.json());
    //browserify(path.join(__dirname, '..', '/client/index.js'))
     res.send(path.join(__dirname, '../client/index.html'));
    });
+
+app.get('/testpath', function(req,res){
+
+    knex.select('*').from('users').then(function(data){
+      var someData = '';
+      res.on('data', function(chunk){
+        someData+=chunk
+      })
+      res.on('end', function(noData){
+        res.send(someData)
+      })
+    })
+});
 
  app.get('/facebookLogin', function(req, res){
     res.sendFile(path.join(__dirname, '../client/facebookLogin.html'));
@@ -91,6 +118,7 @@ app.post("/events/update", function(req, res){
 
  app.post("/events/new", function(req, res) {
   //{user_id:  , event: {}}
+  console.log('in events new')
   knex.insert(req.body.event).into('events')
   .then(retreiveAll(req.body.user_id, res))
   });
