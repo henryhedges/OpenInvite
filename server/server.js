@@ -12,7 +12,7 @@ var pg = require('pg');
 //knexfile();
 // Serves up a browserified version of our index, with access to any of it's dependencies
 // ...in theory
-
+console.log(process.env.DATABASE_URL)
 // Still need a database conneciton
 var knex = require('knex')({
   production: {
@@ -22,7 +22,6 @@ var knex = require('knex')({
       database:'da2e4sh7knvhts',
       user:'piemlflqgregxw',
       password:'j26DtKPrrSNIlRyC_1C3i3gdVR',
-      port:5432,
       ssl:true
     },
     searchPath: 'knex,public'
@@ -57,17 +56,38 @@ app.use (bodyParser.json());
    });
 
 app.get('/testpath', function(req,res){
-
-    knex.select('*').from('users').then(function(data){
-      var someData = '';
-      res.on('data', function(chunk){
-        someData+=chunk
-      })
-      res.on('end', function(noData){
-        res.send(someData)
-      })
+  pg.connect('postgres://piemlflqgregxw:j26DtKPrrSNIlRyC_1C3i3gdVR@ec2-54-247-76-24.eu-west-1.compute.amazonaws.com:5432/da2e4sh7knvhts',
+    function(err, client, done){
+      client
+       .query('SELECT * FROM users;')
+       .on('row', function(row) {
+          console.log(JSON.stringify(row));
+        });
     })
+    // knex.select('*').from('users').then(function(data){
+    //   var someData = '';
+    //   res.on('data', function(chunk){
+    //     someData+=chunk
+    //   })
+    //   res.on('end', function(noData){
+    //     res.send(someData)
+    //   })
+    // })
 });
+
+app.get('/testpath2', function(req,res){
+
+  knex.select('*').from('users').then(function(data){
+    var someData = '';
+    res.on('data', function(chunk){
+      someData+=chunk
+    })
+    res.on('end', function(noData){
+      res.send(someData)
+    })
+  })
+});
+
 
  app.get('/facebookLogin', function(req, res){
     res.sendFile(path.join(__dirname, '../client/facebookLogin.html'));
