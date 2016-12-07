@@ -38,6 +38,7 @@ app.use (bodyParser.json());
 
  app.get('/', function(req,res){
    //browserify(path.join(__dirname, '..', '/client/index.js'))
+   console.log('req /')
     res.send(path.join(__dirname, '../client/index.html'));
    });
 
