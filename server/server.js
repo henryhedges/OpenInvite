@@ -15,10 +15,10 @@ var knex = require('knex')({
   production: {
     client: 'pg',
     connection: {
-      host:'ec2-54-247-81-123.eu-west-1.compute.amazonaws.com',
-      database:'dmbarhi7fssa',
-      user:'xrcfdnhaqztqdv',
-      password:'y28gCJqxEjxMs18fLFY0ysazcF',
+      host:'ec2-54-247-76-24.eu-west-1.compute.amazonaws.com',
+      database:'da2e4sh7knvhts',
+      user:'piemlflqgregxw',
+      password:'j26DtKPrrSNIlRyC_1C3i3gdVR',
       ssl:true
     },
     searchPath: 'knex,public'
