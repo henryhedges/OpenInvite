@@ -1,17 +1,9 @@
 // Update with your config settings.
 
 module.exports = {
-
-  development: {
-    client: 'mysql',
-    connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PWD,
-      database: process.env.DB_NAME,
-      charset: 'utf8'
-    }
-  },
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  searchPath: 'knex,public'
 };
 
 // Steps to setting up a MySql server at a work station for db testing:

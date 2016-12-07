@@ -10,16 +10,12 @@
 // Serves up a browserified version of our index, with access to any of it's dependencies
 // ...in theory
 
-// Still need a database conneciton
+// Still need a database conneciton -- now postgres
 var knex = require('knex')({
-    client: 'mysql',
-    connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PWD,
-      database: process.env.DB_NAME,
-      charset: 'utf8'
-    }});
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  searchPath: 'knex,public'
+}});
 
 
 // code from the express.static docs
