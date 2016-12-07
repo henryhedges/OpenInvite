@@ -7,8 +7,8 @@ module.exports = {
       host:'ec2-54-247-81-123.eu-west-1.compute.amazonaws.com',
       database:'dmbarhi7fssa',
       user:'xrcfdnhaqztqdv',
-      port:'5432',
-      password:'y28gCJqxEjxMs18fLFY0ysazcF'
+      password:'y28gCJqxEjxMs18fLFY0ysazcF',
+      ssl:true
     },
     searchPath: 'knex,public'
   }
