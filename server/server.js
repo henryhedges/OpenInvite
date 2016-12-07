@@ -13,7 +13,7 @@
 // Still need a database conneciton -- now postgres
 var knex = require('knex')({
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       host:'ec2-54-247-81-123.eu-west-1.compute.amazonaws.com',
       database:'dmbarhi7fssa',
